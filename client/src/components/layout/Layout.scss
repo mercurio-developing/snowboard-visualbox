@@ -1,0 +1,18 @@
+@import "styles/_variables.scss";
+@import "styles/_structure.scss";
+
+.navbar {
+  @extend %nav;
+}
+
+.navbar a {
+  font-family: Roboto;
+  font-size: 18px;
+  color: #000 !important;
+}
+
+.navbar a:hover {
+  font-family: Roboto;
+  font-size: 18px;
+  color: $secondary !important;
+}

@@ -1,0 +1,43 @@
+@import "styles/_variables.scss";
+@import "styles/_structure.scss";
+
+.card-materialize {
+  @extend %card;
+}
+
+.fa-trash {
+  font-size: 48px;
+  color: #cd3333;
+}
+
+.fa-edit {
+  font-size: 48px;
+  color: #8ba446;
+}
+
+.fa-check {
+  font-size: 48px;
+  color: #8ba446;
+}
+
+.fa-undo-alt {
+  font-size: 48px;
+  color: #cd3333;
+}
+
+.fa-arrow-left {
+  font-size: 32px;
+  color: rgba(255, 153, 51, 0.8);
+}
+
+.fa-arrow-right {
+  font-size: 32px;
+  color: rgba(255, 153, 51, 0.8);
+}
+
+.fa-check,
+.fa-trash,
+.fa-undo-alt,
+.fa-edit:hover {
+  font-size: 52px;
+}

@@ -1,0 +1,19 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+.navbar {
+  background-color: rgba(227, 219, 216, 0.9);
+  padding: 8px 12px 8px 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 8px;
+  color: #228fcf; }
+
+.navbar a {
+  font-family: Roboto;
+  font-size: 18px;
+  color: #000 !important; }
+
+.navbar a:hover {
+  font-family: Roboto;
+  font-size: 18px;
+  color: #228fcf !important; }

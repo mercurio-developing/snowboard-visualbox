@@ -1,16 +1,27 @@
 import React, { Component } from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import { Provider } from "react-redux";
+import store from "./store";
+
+// Components
+import Navbar from "./components/layout/Navbar";
+import Landing from "./components/landing/Landing";
+
 import "./App.css";
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <div className="container">
-          <div className="row">
-            <div className="col-12" />
+      <Provider store={store}>
+        <Router>
+          <div className="App">
+            <div className="container">
+              <Route exact path="/" component={Landing} />
+            </div>
           </div>
-        </div>
-      </div>
+        </Router>
+      </Provider>
     );
   }
 }

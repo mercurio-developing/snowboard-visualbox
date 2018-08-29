@@ -1,9 +1,15 @@
-import { GET_ATHLETES, GET_ATHLETE, TRACK_LOADING } from "../actions/types";
+import {
+  GET_ATHLETES,
+  GET_ATHLETE,
+  ATHLETE_LOADING,
+  ATHLETE_EDITING
+} from "../actions/types";
 
 const initialState = {
   athletes: [],
-  athlete: {},
-  loading: false
+  athleteById: {},
+  loading: false,
+  editing: false
 };
 
 export default function(state = initialState, action) {
@@ -11,19 +17,25 @@ export default function(state = initialState, action) {
     case GET_ATHLETES:
       return {
         ...state,
-        ATHLETES: action.payload,
+        athletes: action.payload,
         loading: false
       };
     case GET_ATHLETE:
       return {
         ...state,
-        track: action.payload,
-        loading: false
+        athleteById: action.payload,
+        editing: true
+        // loading: false
       };
-    case TRACK_LOADING:
+    case ATHLETE_LOADING:
       return {
         ...state,
         loading: true
+      };
+    case ATHLETE_EDITING:
+      return {
+        ...state,
+        editing: false
       };
 
     default:

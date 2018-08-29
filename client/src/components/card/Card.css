@@ -1,0 +1,39 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+.card-materialize {
+  background-color: rgba(227, 219, 216, 0.9);
+  padding: 8px 12px 8px 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  border-radius: 8px;
+  color: rgba(0, 0, 0, 0.8); }
+
+.fa-trash {
+  font-size: 48px;
+  color: #cd3333; }
+
+.fa-edit {
+  font-size: 48px;
+  color: #8ba446; }
+
+.fa-check {
+  font-size: 48px;
+  color: #8ba446; }
+
+.fa-undo-alt {
+  font-size: 48px;
+  color: #cd3333; }
+
+.fa-arrow-left {
+  font-size: 32px;
+  color: rgba(255, 153, 51, 0.8); }
+
+.fa-arrow-right {
+  font-size: 32px;
+  color: rgba(255, 153, 51, 0.8); }
+
+.fa-check,
+.fa-trash,
+.fa-undo-alt,
+.fa-edit:hover {
+  font-size: 52px; }
