@@ -2,8 +2,8 @@ import axios from "axios";
 import isEmpty from "../validation/is-empty";
 
 import {
-  GET_ERRORS,
-  CLEAR_ERRORS,
+  // GET_ERRORS,
+  // CLEAR_ERRORS,
   GET_ATHLETES,
   GET_ATHLETE,
   ATHLETE_LOADING,
@@ -31,17 +31,6 @@ export const getAthletes = () => dispatch => {
 };
 
 export const getAthlete = id => dispatch => {
-  // dispatch(setAthleteLoading());
-  // if (isEmpty(query)) {
-  //   dispatch({
-  //     type: GET_ERRORS,
-  //     payload: "Please search a Athlete"
-  //   });
-  // } else {
-  //   dispatch(clearErrors());
-  // }
-  // dispatch(setAthleteEditing());
-
   axios
     .get(`/api/athletes/${id}`)
     .then(res => {
@@ -95,9 +84,9 @@ export const setAthleteEditing = () => {
   };
 };
 
-// Clear errors
-export const clearErrors = () => {
-  return {
-    type: CLEAR_ERRORS
-  };
-};
+// // Clear errors
+// export const clearErrors = () => {
+//   return {
+//     type: CLEAR_ERRORS
+//   };
+// };

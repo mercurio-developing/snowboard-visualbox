@@ -5,38 +5,29 @@ import { connect } from "react-redux";
 import isEmpty from "../../validation/is-empty";
 import { withRouter } from "react-router-dom";
 
-class EditInfoCard extends Component {
+class CreateCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
       athlete: {
         athleteName: "",
-        gender: "",
+        gender: "M",
         country: "",
-        olympicGame: "",
-        medalType: "",
-        _id: ""
+        olympicGames: "",
+        medalType: "gold"
       },
       loading: false,
       errors: {
         athleteName: "",
         gender: "",
         country: "",
-        olympicGame: "",
+        olympicGames: "",
         medalType: ""
-      }
+      },
+      athletes: null
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.onChange = this.onChange.bind(this);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.athlete !== prevProps.athlete) {
-      this.setState({
-        athlete: this.props.athlete
-      });
-    }
-    return this.props.athlete;
   }
 
   selectGender(gender) {
@@ -68,13 +59,12 @@ class EditInfoCard extends Component {
 
   onSubmit(e) {
     e.preventDefault();
-    let counter = 0;
-    this.setState({ errors: "" });
-
+    let counter;
     // EMPTY VALIDATION
     Object.keys(this.state.athlete).map(key => {
       if (isEmpty(this.state.athlete[key])) {
         counter = +1;
+        console.log("empty");
         this.setState({
           errors: {
             ...this.state.errors,
@@ -83,60 +73,7 @@ class EditInfoCard extends Component {
         });
       }
     });
-
-    // MEDAL VALIDATION
-    let medalValidation = this.props.athletes.athletes.filter(
-      athlete =>
-        athlete.gender === this.state.athlete.gender &&
-        athlete.olympicGames === this.state.athlete.olympicGames &&
-        athlete.medalType === this.state.athlete.medalType
-    );
-
-    if (medalValidation.length === 1) {
-      if (
-        medalValidation[0].athleteName !== this.state.athlete["athleteName"] &&
-        !isEmpty(this.state.athlete["athleteName"])
-      ) {
-        counter = +1;
-
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            medalType: "You can't choose this medal,other champion is owner!"
-          }
-        });
-      } else if (isEmpty(this.state.athlete["athleteName"])) {
-        counter = +1;
-
-        this.setState({
-          errors: {
-            ...this.state.errors,
-            medalType: "Please fill the name before add a medal"
-          }
-        });
-      }
-    }
-
-    // GENDER VALIDATION
-    let genderValidation = this.props.athletes.athletes.filter(
-      athlete =>
-        athlete.olympicGames === this.state.athlete.olympicGames &&
-        athlete.gender === this.state.athlete.gender
-    );
-    if (genderValidation.length > 3) {
-      counter = +1;
-      this.setState({
-        errors: {
-          ...this.state.errors,
-          gender: `Is already more then 3 winner with the same gender in this olympic game`
-        }
-      });
-    }
-    // RESOLUTION & CHECK ERRORS
-    if (counter === 0) {
-      this.props.updateAthlete(this.state.athlete, this.props.history);
-      window.location.reload();
-    }
+    this.props.updateAthlete(this.state.athlete, this.props.history);
   }
   render() {
     let genderPicture, medalPicture;
@@ -145,8 +82,7 @@ class EditInfoCard extends Component {
       gender,
       country,
       olympicGames,
-      medalType,
-      _id
+      medalType
     } = this.state.athlete;
     // GENDER////////////////////////
 
@@ -238,6 +174,7 @@ class EditInfoCard extends Component {
                     value={athleteName}
                     type="text"
                     onChange={this.onChange}
+                    defaultValue=""
                   />
                   {!isEmpty(this.state.errors.athleteName) ? (
                     <p style={{ color: "red", fontSize: "14px" }}>
@@ -255,6 +192,7 @@ class EditInfoCard extends Component {
                     value={country}
                     type="text"
                     onChange={this.onChange}
+                    defaultValue=""
                   />
                   {!isEmpty(this.state.errors.country) ? (
                     <p style={{ color: "red" }}>
@@ -272,6 +210,7 @@ class EditInfoCard extends Component {
                     value={olympicGames}
                     type="text"
                     onChange={this.onChange}
+                    defaultValue=""
                   />
                   {!isEmpty(this.state.errors.olympicGames) ? (
                     <p style={{ color: "red" }}>
@@ -314,7 +253,7 @@ class EditInfoCard extends Component {
             <i
               className="fas fa-undo-alt"
               onClick={() => {
-                this.props.undoChanges();
+                this.props.history.push("/");
               }}
             />
           </button>
@@ -329,10 +268,9 @@ class EditInfoCard extends Component {
   }
 }
 
-EditInfoCard.propTypes = {
-  athleteById: PropTypes.object,
-  athletes: PropTypes.object,
-  undoChanges: PropTypes.func.isRequired
+CreateCard.propTypes = {
+  undoChanges: PropTypes.func.isRequired,
+  athletes: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => ({
@@ -342,4 +280,4 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { updateAthlete }
-)(withRouter(EditInfoCard));
+)(withRouter(CreateCard));

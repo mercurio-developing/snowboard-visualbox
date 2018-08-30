@@ -9,6 +9,7 @@ import Navbar from "./components/layout/Navbar";
 import Landing from "./components/landing/Landing";
 
 import "./App.css";
+import CreateAthlete from "./components/createAthlete/CreateAthlete";
 
 class App extends Component {
   render() {
@@ -18,6 +19,7 @@ class App extends Component {
           <div className="App">
             <div className="container">
               <Route exact path="/" component={Landing} />
+              <Route exact path="/createAthlete" component={CreateAthlete} />
             </div>
           </div>
         </Router>

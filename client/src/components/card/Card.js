@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 import "./Card.css";
 import { connect } from "react-redux";
-import { deleteAthlete, getAthlete } from "../../actions/athletesActions";
+import {
+  deleteAthlete,
+  getAthlete,
+  setAthleteEditing
+} from "../../actions/athletesActions";
 import EditInfoCard from "./EditInfoCard";
 import InfoCard from "./InfoCard";
 import Loading from "../common/Loading";
+
 class Card extends Component {
   constructor(props) {
     super(props);
@@ -14,35 +19,29 @@ class Card extends Component {
       isEditing: false,
       athelete: {}
     };
+
     this.editAthlete = this.editAthlete.bind(this);
     this.deleteAthlete = this.deleteAthlete.bind(this);
-    this.undoChanges = this.undoChanges.bind(this);
+    this.undoChanges = this.undoChanges.bind(this, this.props.dispatch);
   }
 
   editAthlete(id) {
     let athleteId = id;
-    this.props.getAthlete(athleteId);
-    this.setState({
-      isEditing: true
-    });
-    console.log(this.state.isEditing);
+    if (this.props.editing === false) {
+      this.props.getAthlete(athleteId);
+      this.setState({
+        isEditing: true
+      });
+    }
   }
 
   deleteAthlete(id) {
     let athleteId = id;
     this.props.deleteAthlete(athleteId);
   }
-  // shouldComponentUpdate(prevProps, nextProps, nextState) {
-  //   console.log(prevProps);
-  //   if (prevProps.editing !== nextProps.editing) {
-  //     this.setState({
-  //       isEditing: this.props.editing
-  //     });
-  //   }
-  //   return this.state.is;
-  // }
 
   undoChanges() {
+    this.props.setAthleteEditing();
     console.log("gato");
     this.setState({
       isEditing: false
@@ -63,15 +62,14 @@ class Card extends Component {
           </div>
         ) : (
           <div className="col-xl-12">
-            {
-              (console.log(this.props.loading, this.props.athleteById),
-              this.props.loading === false &&
-              this.props.athleteById !== null ? (
-                <EditInfoCard athlete={this.props.athleteById} />
-              ) : (
-                <Loading />
-              ))
-            }
+            {this.props.loading === false && this.props.athleteById !== null ? (
+              <EditInfoCard
+                athlete={this.props.athleteById}
+                undoChanges={this.undoChanges}
+              />
+            ) : (
+              <Loading />
+            )}
           </div>
         )}
       </div>
@@ -81,14 +79,16 @@ class Card extends Component {
 Card.Proptypes = {
   getAthlete: PropTypes.func.isRequired,
   athleteById: PropTypes.object.isRequired,
-  loading: PropTypes.bool.isRequired
+  setAthleteEditing: PropTypes.func.isRequired,
+  loading: PropTypes.bool.isRequired,
+  editing: PropTypes.bool.isRequired
 };
 const mapStateToProps = state => ({
-  errors: state.errors,
   loading: state.athletes.loading,
-  athleteById: state.athletes.athleteById
+  athleteById: state.athletes.athleteById,
+  editing: state.athletes.editing
 });
 export default connect(
   mapStateToProps,
-  { getAthlete, deleteAthlete }
+  { getAthlete, deleteAthlete, setAthleteEditing }
 )(Card);
